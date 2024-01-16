@@ -1,10 +1,7 @@
 import lombok.SneakyThrows;
-import net.bytebuddy.asm.MemberSubstitution;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.ArgumentMatchers;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -60,13 +57,27 @@ class HorseTest {
 
 
     @Test
+    @SneakyThrows
     void getName() {
-        assertEquals("Pegasus", new Horse("Pegasus", 2.5).getName());
+        //assertEquals("Pegasus", new Horse("Pegasus", 2.5).getName());   do not use
+        String expectedName = name;
+        Horse horse = new Horse(name, speed);
+        Field field = Horse.class.getDeclaredField("name");
+        field.setAccessible(true);
+        String actualName = (String) field.get(horse);
+        assertEquals(expectedName, actualName);
     }
 
     @Test
+    @SneakyThrows
     void getSpeed() {               // переписать
-        assertEquals(2.5, new Horse("Pegasus", 2.5).getSpeed());
+        //assertEquals(2.5, new Horse("Pegasus", 2.5).getSpeed());   do not use
+        double expectedSpeed = speed;
+        Horse horse = new Horse(name, speed);
+        Field field = Horse.class.getDeclaredField("speed");
+        field.setAccessible(true);
+        double actualSpeed = (double) field.get(horse);
+        assertEquals(expectedSpeed, actualSpeed);
     }
 
     @Test

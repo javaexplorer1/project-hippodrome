@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +35,12 @@ class HippodromeTest {
 
     @Test
     void getHorses() {
+
+        List<Horse> expectedList = new LinkedList<>();
+        for (int i = 0; i < 30; i++) {
+            expectedList.add(new Horse("Horse" + i, 1.0));
+        }
+        assertEquals(expectedList, (new Hippodrome(expectedList)).getHorses());
     }
 
     @Test

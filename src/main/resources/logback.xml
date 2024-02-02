@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Console appender -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{"yyyy-MM-dd HH:mm:ss,SSS"} %-5level %logger{0}: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Rolling File Appender -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/hippodrome.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/hippodrome.%d{yyyy-MM-dd-mm}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{"yyyy-MM-dd HH:mm:ss,SSS"} %-5level %logger{0}: %msg%n</pattern>
+        </encoder>
+
+        <append>true</append>
+        <immediateFlush>true</immediateFlush>
+    </appender>
+
+    <root level="all">
+        <appender-ref ref="console" />
+        <appender-ref ref="ROLLING"/>
+    </root>
+
+</configuration>

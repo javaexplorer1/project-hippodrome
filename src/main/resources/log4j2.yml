@@ -1,0 +1,31 @@
+Configuration:
+  status: warn
+
+  appenders:
+
+    RollingFile:
+      - name: LogToRollingFile
+        fileName: logs/hippodrome.log
+        filePattern: "logs/hippodrome-%d{yyyy-MM-dd-mm--ss}-%i.log"
+        #        datePattern: "yyyy-MM-dd-mm"
+        append: true
+        PatternLayout:
+          pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-6level%c{1}: %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 10MB
+        DefaultRollOverStrategy:
+          max: 10
+
+  Loggers:
+    logger:
+      - name: hippodrome
+        level: error
+        additivity: false
+        AppenderRef:
+          ref: LogToRollingFile
+
+    Root:
+      level: all
+      AppenderRef:
+        ref: LogToRollingFile
